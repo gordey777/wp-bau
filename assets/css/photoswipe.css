@@ -1,0 +1,173 @@
+/*
+ * photoswipe.css
+ * Copyright (c) %%year%% by Code Computerlove (http://www.codecomputerlove.com)
+ * Licensed under the MIT license
+ *
+ * Default styles for PhotoSwipe
+ * Avoid any position or dimension based styles
+ * where possible, unless specified already here.
+ * The gallery automatically works out gallery item
+ * positions etc.
+ */
+body.ps-active, body.ps-building {
+  background: #000;
+  overflow: hidden;
+}
+
+div.ps-active, div.ps-building {
+  background: #000;
+  overflow: hidden;
+}
+
+body.ps-active *, div.ps-active * {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  display: none;
+}
+
+body.ps-active *:focus {
+  outline: 0;
+}
+
+div.ps-active *:focus {
+  outline: 0;
+}
+
+div.ps-document-overlay {
+  background: #000;
+}
+
+div.ps-uilayer {
+  background: #000;
+  cursor: pointer;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+div.ps-uilayer:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+
+div.ps-zoom-pan-rotate {
+  background: #000;
+}
+
+div.ps-zoom-pan-rotate * {
+  display: block;
+}
+
+div.ps-carousel-item-loading {
+  background: url(../img/photoswipeloader.gif) no-repeat center center;
+}
+
+div.ps-carousel-item-error {
+  background: url(../img/photoswipeerror.gif) no-repeat center center;
+}
+
+div.ps-caption {
+  background: #000;
+  color: #fff;
+  font-size: 13px;
+  font-family: 'PT Sans', sans-serif;
+  text-align: center;
+}
+
+div.ps-caption * {
+  display: inline;
+}
+
+div.ps-caption-bottom {
+  border-bottom: none;
+  min-height: 44px;
+  background: rgba(0, 0, 0, 0.5);
+  display: none !important;
+}
+
+div.ps-caption-content {
+  padding: 13px;
+  display: block;
+}
+
+div.ps-toolbar {
+  background: #fc0;
+  color: #fff;
+  font-size: 13px;
+  font-family: "Lucida Grande", Helvetica, Arial,Verdana, sans-serif;
+  text-align: center;
+  height: 44px;
+  display: table;
+  table-layout: fixed;
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+div.ps-toolbar * {
+  display: block;
+}
+
+div.ps-toolbar-top {
+  border-top: none;
+}
+
+div.ps-toolbar-close, div.ps-toolbar-previous, div.ps-toolbar-next, div.ps-toolbar-play {
+  cursor: pointer;
+  display: table-cell;
+}
+
+div.ps-toolbar div div.ps-toolbar-content {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 0;
+  background-image: url(../img/photoswipeicons.png);
+  background-repeat: no-repeat;
+}
+
+div.ps-toolbar-close div.ps-toolbar-content {
+  background-position: 0 0;
+}
+
+div.ps-toolbar-previous div.ps-toolbar-content {
+  background-position: -44px 0;
+}
+
+div.ps-toolbar-previous-disabled div.ps-toolbar-content {
+  background-position: -44px -44px;
+}
+
+div.ps-toolbar-next div.ps-toolbar-content {
+  background-position: -132px 0;
+}
+
+div.ps-toolbar-next-disabled div.ps-toolbar-content {
+  background-position: -132px -44px;
+}
+
+div.ps-toolbar-play div.ps-toolbar-content {
+  background-position: -88px 0;
+}
+
+/* Document overlay */
+/* UILayer */
+/* Zoom/pan/rotate layer */
+/* Carousel */
+/* Caption */
+/* Toolbar */
+.cursor div.ps-toolbar-previous:hover, .cursor div.ps-toolbar-play:hover, .cursor div.ps-toolbar-next:hover, .cursor div.ps-toolbar-close:hover {
+  opacity: .8;
+}
+
+/* Hi-res display */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 240dpi) {
+  div.ps-toolbar div div.ps-toolbar-content {
+    -moz-background-size: 176px 88px;
+    -o-background-size: 176px 88px;
+    -webkit-background-size: 176px 88px;
+    background-size: 176px 88px;
+    background-image: url(../img/photoswipeicons-2x.png);
+  }
+}
+
+/*# sourceMappingURL=maps/photoswipe.css.map */

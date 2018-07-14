@@ -1,0 +1,165 @@
+@media (max-width: 1200px) {
+.block-2 {
+    margin-top: 140px;
+}
+}
+
+@media (max-width: 1120px) {
+    .logo{
+        text-align: center;
+    }
+    ul.top-contact {
+        padding-left: 20px;
+        width: 50%;
+        margin: 0 auto;
+    }
+    .block-numbers {
+        max-width: 100%;
+    }
+	.contacts-bottom {
+		height:auto;
+	}
+	
+	.carousel-inner .item {
+		margin-top: 40%;
+	}
+	.carousel-caption {
+    top: -68%;
+		}
+		
+		.carousel-inner img {
+    margin-top: -40px;
+		}
+		
+	.up {
+    bottom: 85px;
+    right: 25px;
+	}
+
+	.slick-next, .slick-prev{
+display:none !important;
+}
+
+.navbar-header, .header-cnt{
+margin-right:0 !important;
+margin-left:0 !important;
+}
+	
+}
+
+@media (max-width: 960px) {
+    .nav{
+        margin-left: 0;
+    }
+
+    .navbar-default .navbar-nav > li:first-child{
+        padding-left: 14px;	
+    }
+	.navbar-default .navbar-nav > li{
+	width: 90%;
+	}
+    .logo{
+        text-align: center;
+    }
+    ul.top-contact {
+        padding-left: 20px;
+        width: 50%;
+        margin: 0 auto;
+    }
+    .block-numbers {
+        max-width: 100%;
+    }
+	.slick-next, .slick-prev{
+display:none !important;
+}
+
+.working{
+	text-align:center;
+	}
+	
+	.carousel-caption {
+    top: -58%;
+}
+.carousel-inner img {
+    margin-top: 0;
+}
+}
+
+
+@media (max-width: 768px) {
+    .slide-form {
+        background: none;
+        display: block;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+    .slide-block {
+        padding-left: 15px;
+    }
+    .form-block {
+       padding-right: 15px;
+    }
+    .logo{
+        text-align: center;
+    }
+    ul.top-contact {
+        padding-left: 20px;
+        width: 50%;
+        margin: 0 auto;
+    }
+    p.title {
+        font-size: 35px;
+    }
+    .desc {
+        font-size: 25px;
+    }
+    .block-numbers {
+         max-width: 100%;
+    }
+    .catalog{
+        display: block;
+        margin-top: 0;
+    }
+	.carousel-inner .item {
+    margin-top: 22%;
+	}
+.carousel-caption {
+    top: -58%;
+	}
+	
+	h2{
+	font-size:28px;
+	}
+	
+	.working{
+	text-align:center;
+	}
+	.catalog-item {
+    margin-right: 0;
+}
+
+.slick-next, .slick-prev{
+display:none !important;
+}
+	
+}
+
+
+@media (max-width: 560px) {
+    .carousel-inner .item {
+         margin-top: 0;
+    }
+    .carousel-caption {
+        position: relative;
+        top: -58%;
+        left: 0;
+        right: 0;
+        width: 85%;
+        text-align: left;
+        margin: 0 auto;
+    }
+	
+	.carousel-inner img {
+    margin-top: -60px;
+}
+}
