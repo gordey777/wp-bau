@@ -1,17 +1,22 @@
+ <?php $front__id = (int)(get_option( 'page_on_front' )); ?>
+
   <div class="footer fixed">
     <div class="copyrights">
       <small>© 2007–<?php echo date("Y"); ?> Kauper. <span>All rights reserved.</span></small>
       <small class="cawas">Developed by <a href="http://cawas.com/" target="_blank">Cawas Ltd</a>.</small>
     </div>
-    <div class="social">
-      <a href="https://www.facebook.com/" class="facebook" target="_blank">Facebook</a>
-      <a href="https://twitter.com/" class="twitter" target="_blank">Twitter</a>
-      <a href="https://plus.google.com/" class="google" target="_blank" rel="publisher">Google+</a>
-      <a href="https://www.youtube.com/" class="youtube" target="_blank">YouTube</a>
-    </div>
+
+    <?php if( have_rows('socials', $front__id)): ?>
+      <div class="social">
+        <?php while ( have_rows('footer_socials', $front__id) ) : the_row(); ?>
+          <a href="<?php the_sub_field('link'); ?>" class="social-item fa <?php the_sub_field('icon'); ?>" title="<?php the_sub_field('title'); ?>" target="_blank"></a>
+        <?php endwhile; ?>
+      </div>
+    <?php endif; ?>
+
   </div>
   <div class="loader"></div>
-<?php wp_footer(); ?>
+  <?php wp_footer(); ?>
   <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/js.js"></script>
   <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.marquee.js"></script>
   <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.cycle.js"></script>

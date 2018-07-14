@@ -20,19 +20,19 @@
   <!-- css + javascript -->
   <?php wp_head(); ?>
 </head>
+
+<?php $front__id = (int)(get_option( 'page_on_front' )); ?>
 <body >
 <!-- wrapper -->
 
 <body id="main-page" <?php body_class('cursor ru'); ?>>
+
   <div class="print-header">
     <img src="<?php echo get_template_directory_uri(); ?>/img/kauper-logo.png" width="130" height="82" alt="Kauper">
-    <p>ООО «Строительная компания Каупер»
-      <br>ул. Магнитогорская, 1, Киев 02660, Украина
-      <br>+380 (44) 377-74-10, +380 (67) 230-34-15
-      <br>http://kauper.com.ua, office@kauper.com.ua</p>
+    <?php the_field('print_text', $front__id); ?>
   </div>
   <div class="header">
-    <h1 class="logo"><?php if ( !is_front_page() && !is_home() ){ ?><a href="<?php echo home_url(); ?>"><?php } else { echo '<span>';}?>Строительная компания «Каупер»<?php if ( !is_front_page() && !is_home() ){ echo '</a>';} else { echo '</span>';}?></h1>
+    <h1 class="logo"><?php if ( !is_front_page() && !is_home() ){ ?><a href="<?php echo home_url(); ?>"><?php } else { echo '<span>';} the_field('header_slogan', $front__id);  if ( !is_front_page() && !is_home() ){ echo '</a>';} else { echo '</span>';}?></h1>
     <div class="main-menu">
       <?php wpeHeadNav(); ?>
 
