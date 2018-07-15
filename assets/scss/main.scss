@@ -1322,7 +1322,7 @@ form {
   dd {
     display: inline-block;
     overflow: hidden;
-
+float: left;
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
@@ -1459,7 +1459,8 @@ form {
 
   text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
 
-  a {
+  a,
+  span {
     font-weight: bold;
     line-height: 30px;
 
@@ -1479,6 +1480,7 @@ form {
       text-shadow: none;
     }
 
+    &.current,
     &.active {
       cursor: default;
 

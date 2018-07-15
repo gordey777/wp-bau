@@ -1121,6 +1121,7 @@ form textarea {
 .news dd {
   display: inline-block;
   overflow: hidden;
+  float: left;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1226,7 +1227,8 @@ form textarea {
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
 }
 
-.pages a {
+.pages a,
+.pages span {
   font-weight: bold;
   line-height: 30px;
   display: block;
@@ -1237,13 +1239,16 @@ form textarea {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.pages a:hover {
+.pages a:hover,
+.pages span:hover {
   color: #222;
   background-color: #fc0;
   text-shadow: none;
 }
 
-.pages a.active {
+.pages a.current, .pages a.active,
+.pages span.current,
+.pages span.active {
   cursor: default;
   color: #222;
   background-color: #fc0;

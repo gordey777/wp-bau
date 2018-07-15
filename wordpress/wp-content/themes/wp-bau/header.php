@@ -22,10 +22,8 @@
 </head>
 
 <?php $front__id = (int)(get_option( 'page_on_front' )); ?>
-<body >
-<!-- wrapper -->
 
-<body id="main-page" <?php body_class('cursor ru'); ?>>
+<body id="" <?php body_class('cursor ru'); ?>>
 
   <div class="print-header">
     <img src="<?php echo get_template_directory_uri(); ?>/img/kauper-logo.png" width="130" height="82" alt="Kauper">

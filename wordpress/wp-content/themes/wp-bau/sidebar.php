@@ -1,11 +1,10 @@
-<aside class="sidebar" role="complementary">
 
-  <?php if ( is_active_sidebar('widgetarea1') ) : ?>
-    <?php dynamic_sidebar( 'widgetarea1' ); ?>
-  <?php else : ?>
-
-    <!-- If you want display static widget content - write code here
-		RU: Здесь код вывода того, что необходимо для статического контента виджетов -->
-
-  <?php endif; ?>
-</aside><!-- /sidebar -->
+      <div class="sidebar">
+        <h3>Компания</h3>
+        <ul class="submenu">
+          <li><a href="https://kauper.com.ua/company/about/">О компании</a></li>
+          <li class="active"><a href="https://kauper.com.ua/company/news/">Новости</a></li>
+          <li><a href="https://kauper.com.ua/company/clients/">Наши клиенты</a></li>
+          <li><a href="https://kauper.com.ua/company/reviews/">Отзывы</a></li>
+        </ul>
+      </div>

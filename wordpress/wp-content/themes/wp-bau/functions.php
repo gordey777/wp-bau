@@ -338,8 +338,8 @@ function html5wp_pagination() {
       'base' => str_replace($big, '%#%', get_pagenum_link($big)),
       'format' => '?paged=%#%',
       'current' => max(1, get_query_var('paged')),
-      'prev_text' => __('« Previous'),
-      'next_text' => __('Next »'),
+      'prev_text' => __('←'),
+      'next_text' => __('→'),
       'total' => $wp_query->max_num_pages
     )
   );

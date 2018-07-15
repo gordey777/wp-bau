@@ -1,10 +1,24 @@
 <?php get_header(); ?>
-  <article>
 
-    <h1 class="cat-title inner-title"><?php the_category(', '); ?></h1>
-    <?php get_template_part('loop'); ?>
-    <?php get_template_part('pagination'); ?>
 
-  </article>
-<?php get_sidebar(); ?>
+
+  <div class="wrapper">
+    <div class="container">
+      <div class="content">
+        <h1>Новости</h1>
+        <dl class="news list">
+
+            <?php get_template_part('loop'); ?>
+
+        </dl>
+<?php get_template_part('pagination'); ?>
+      </div>
+      <?php get_sidebar(); ?>
+    </div>
+  </div>
+  <div class="background">
+    <div class="cycle-slideshow"><img src="<?php echo get_template_directory_uri(); ?>/img/kauper-bg.jpg" alt=""></div>
+    <div class="pattern"></div>
+  </div>
+
 <?php get_footer(); ?>
