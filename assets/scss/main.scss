@@ -586,7 +586,8 @@ a {
 
       color: #fff;
     }
-
+    &.current-menu-item > a,
+    &.current-menu-ancestor > a,
     &.active > a {
       color: #fc0;
     }
@@ -610,7 +611,8 @@ a {
   list-style: none;
 
   background-color: rgba(0, 0, 0, .75);
-  li.active > a {
+  li.active > a,
+  li.current-menu-item > a {
     color: #fff;
   }
 }
@@ -1321,8 +1323,9 @@ form {
 
   dd {
     display: inline-block;
+    float: left;
     overflow: hidden;
-float: left;
+
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;

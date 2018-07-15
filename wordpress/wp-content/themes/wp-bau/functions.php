@@ -28,6 +28,7 @@ function catchFirstImage() {
     return $first_img;
 }
 
+//ACF GOOGLE API
 add_action('acf/init', 'my_acf_init');
 function my_acf_init() {
   acf_update_setting('google_api_key', 'AIzaSyCZF31krTQH_5QnEpdIsEgmsBV-Iy884rE');
@@ -59,9 +60,6 @@ function wpeHeaderScripts() {
 
     wp_register_script('modernizr', '//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js', array(), '2.8.3');
     wp_enqueue_script('modernizr');
-
-    //wp_register_script('OwlCarousel2', '//cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.6/owl.carousel.min.js', array(), '2.1.6');
-    //wp_enqueue_script('OwlCarousel2');
 
     wp_deregister_script( 'jquery-form' );
 
@@ -172,29 +170,7 @@ function wpeHeadNav() {
     )
   );
 }
-// WPE footer navigation
-function wpeFootNav() {
-  wp_nav_menu(
-  array(
-    'theme_location'  => 'footer-menu',
-    'menu'            => '',
-    'container'       => 'div',
-    'container_class' => 'menu-{menu slug}-container',
-    'container_id'    => '',
-    'menu_class'      => 'menu',
-    'menu_id'         => '',
-    'echo'            => true,
-    'fallback_cb'     => 'wp_page_menu',
-    'before'          => '',
-    'after'           => '',
-    'link_before'     => '',
-    'link_after'      => '',
-    'items_wrap'      => '<ul class="footernav">%3$s</ul>',
-    'depth'           => 0,
-    'walker'          => ''
-    )
-  );
-}
+
 // WPE sidebar navigation
 function wpeSideNav() {
   wp_nav_menu(
@@ -223,11 +199,11 @@ add_action('init', 'register_html5_menu'); // Add HTML5 Blank Menu
 function register_html5_menu() {
   register_nav_menus(array(
     'header-menu' => __('Меню в шапке', 'wpeasy'),
-    'sidebar-menu' => __('Меню в сайдбар', 'wpeasy'),
-    'footer-menu' => __('Меню в подвал', 'wpeasy')
+    'sidebar-menu' => __('Меню в сайдбар', 'wpeasy')
   ));
 }
-//  If Dynamic Sidebar Existsов
+//  Define Sidebar Widget Area 2. If your want to display more widget - uncoment this
+  /*
 if (function_exists('register_sidebar')) {
   //  Define Sidebar Widget Area 1
   register_sidebar(array(
@@ -239,19 +215,10 @@ if (function_exists('register_sidebar')) {
     'before_title' => '<h6>',
     'after_title' => '</h6>'
   ));
-  //  Define Sidebar Widget Area 2. If your want to display more widget - uncoment this
-  /*
-  register_sidebar(array(
-    'name' => __('Блок виджетов #2', 'wpeasy'),
-    'description' => __('Description for this widget-area...', 'wpeasy'),
-    'id' => 'widgetarea2',
-    'before_widget' => '<div id="%1$s" class="widget %2$s">',
-    'after_widget' => '</div>',
-    'before_title' => '<h6>',
-    'after_title' => '</h6>'
-  ));
-  */
 }
+
+  */
+
 
 //  Custom Excerpts
 //  RU: Произвольное обрезание текста
@@ -365,64 +332,7 @@ function remove_thumbnail_dimensions( $html ) {
   return $html;
 }
 
-// Custom Gravatar in Settings > Discussion
-add_filter('avatar_defaults', 'html5blankgravatar'); // Custom Gravatar in Settings > Discussion
-function html5blankgravatar ($avatar_defaults) {
-  $myavatar = get_template_directory_uri() . '/img/gravatar.jpg';
-  $avatar_defaults[$myavatar] = "Custom Gravatar";
-  return $avatar_defaults;
-}
 
-// Threaded Comments
-add_action('get_header', 'enable_threaded_comments'); // Enable Threaded Comments
-function enable_threaded_comments() {
-  if (!is_admin()) {
-    if (is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) {
-      wp_enqueue_script('comment-reply');
-    }
-  }
-}
-
-// Custom Comments Callback
-function html5blankcomments($comment, $args, $depth) {
-  $GLOBALS['comment'] = $comment;
-  extract($args, EXTR_SKIP);
-
-  if ( 'div' == $args['style'] ) {
-    $tag = 'div';
-    $add_below = 'comment';
-  } else {
-    $tag = 'li';
-    $add_below = 'div-comment';
-  }
-?>
-  <!-- heads up: starting < for the html tag (li or div) in the next line: -->
-  <<?php echo $tag ?> <?php comment_class(empty( $args['has_children'] ) ? '' : 'parent') ?> id="comment-<?php comment_ID() ?>">
-  <?php if ( 'div' != $args['style'] ) : ?>
-    <div id="div-comment-<?php comment_ID() ?>" class="comment-body">
-    <?php endif; ?>
-      <div class="comment-author vcard">
-        <?php if ($args['avatar_size'] != 0) echo get_avatar( $comment, $args['180'] ); ?>
-        <?php printf(__('<cite class="fn">%s</cite> <span class="says">says:</span>'), get_comment_author_link()) ?>
-      </div>
-      <?php if ($comment->comment_approved == '0') : ?>
-        <em class="comment-awaiting-moderation"><?php _e('Your comment is awaiting moderation.') ?></em>
-        <br />
-      <?php endif; ?>
-
-    <div class="comment-meta commentmetadata"><a href="<?php echo htmlspecialchars( get_comment_link( $comment->comment_ID ) ) ?>">
-      <?php printf( __('%1$s at %2$s'), get_comment_date(),  get_comment_time()) ?></a><?php edit_comment_link(__('(Edit)'),'  ','' ); ?>
-    </div>
-
-    <?php comment_text() ?>
-
-    <div class="reply">
-      <?php comment_reply_link(array_merge( $args, array('add_below' => $add_below, 'depth' => $depth, 'max_depth' => $args['max_depth']))) ?>
-    </div>
-      <?php if ( 'div' != $args['style'] ) : ?>
-    </div>
-  <?php endif; ?>
-<?php }
 
 // Remove Actions
 remove_action('wp_head', 'feed_links_extra', 3); // Display the links to the extra feeds such as category feeds
@@ -435,7 +345,6 @@ remove_action('wp_head', 'start_post_rel_link', 10, 0); // Start link
 remove_action('wp_head', 'adjacent_posts_rel_link', 10, 0); // Display relational links for the posts adjacent to the current post.
 remove_action('wp_head', 'wp_generator'); // Display the XHTML generator that is generated on the wp_head hook, WP version
 remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
-remove_action('wp_head', 'rel_canonical');
 remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
 
 // Add Filters
@@ -473,191 +382,13 @@ function single_result() {
 
 // хлебные крошки   http://dimox.name/wordpress-breadcrumbs-without-a-plugin/
 /* <?php if (function_exists('easy_breadcrumbs')) easy_breadcrumbs(); ?> */
-
-function easy_breadcrumbs() {
-
-  // Settings
-
-  $text['home'] = __('Home', 'wpeasy'); // текст ссылки "Главная"
-  $text['category'] = '%s'; // текст для страницы рубрики
-  $text['search'] = '"%s"'; // текст для страницы с результатами поиска
-  $text['tag'] = '"%s"'; // текст для страницы тега
-  $text['author'] = '%s'; // текст для страницы автора
-  $text['404'] = '404'; // текст для страницы 404
-  $text['page'] = __('Page', 'wpeasy') . ' %s'; // текст 'Страница N'
-  $text['cpage'] = __('Review', 'wpeasy') . ' %s'; // текст 'Страница комментариев N'
+//
+//
+//
+//
+//
 
 
-  $wrap_before = '<ul id="breadcrumbs" class="breadcrumbs">'; // открывающий тег обертки
-  $wrap_after = '</ul>'; // закрывающий тег обертки
-  $sep = ' / '; // разделитель между "крошками"
-  $sep_before = '<li class="separator">'; // тег перед разделителем
-  $sep_after = '</li>'; // тег после разделителя
-  $show_home_link = 1; // 1 - показывать ссылку "Главная", 0 - не показывать
-  $show_on_home = 0; // 1 - показывать "хлебные крошки" на главной странице, 0 - не показывать
-  $show_current = 1; // 1 - показывать название текущей страницы, 0 - не показывать
-  $before = '<li class="breadcrumb-item  active">'; // тег перед текущей "крошкой"
-  $after = '</li>'; // тег после текущей "крошки"
-  /* === КОНЕЦ ОПЦИЙ === */
-
-  global $post;
-  $home_url = home_url('/');
-  $link_before = '<li class="breadcrumb-item">';
-  $link_after = '</li>';
-  $link_attr = ' itemprop="item"';
-  $link_in_before = '';
-  $link_in_after = '';
-  $link = $link_before . '<a href="%1$s"' . $link_attr . '>' . $link_in_before . '%2$s' . $link_in_after . '</a>' . $link_after;
-  $frontpage_id = get_option('page_on_front');
-  $parent_id = ($post) ? $post->post_parent : '';
-  $sep = ' ' . $sep_before . $sep . $sep_after . ' ';
-  $home_link = $link_before . '<a href="' . $home_url . '"' . $link_attr . ' class="home">' . $link_in_before . $text['home'] . $link_in_after . '</a>' . $link_after;
-
-  if (is_home() || is_front_page()) {
-
-    if ($show_on_home) echo $wrap_before . $home_link . $wrap_after;
-
-  } else {
-
-    echo $wrap_before;
-    if ($show_home_link) echo $home_link;
-
-    if ( is_category() ) {
-      $cat = get_category(get_query_var('cat'), false);
-      if ($cat->parent != 0) {
-        $cats = get_category_parents($cat->parent, TRUE, $sep);
-        $cats = preg_replace("#^(.+)$sep$#", "$1", $cats);
-        $cats = preg_replace('#<a([^>]+)>([^<]+)<\/a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
-        if ($show_home_link) echo $sep;
-        echo $cats;
-      }
-      if ( get_query_var('paged') ) {
-        $cat = $cat->cat_ID;
-        echo $sep . sprintf($link, get_category_link($cat), get_cat_name($cat)) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
-      } else {
-        if ($show_current) echo $sep . $before . sprintf($text['category'], single_cat_title('', false)) . $after;
-      }
-
-    } elseif ( is_search() ) {
-      if (have_posts()) {
-        if ($show_home_link && $show_current) echo $sep;
-        if ($show_current) echo $before . sprintf($text['search'], get_search_query()) . $after;
-      } else {
-        if ($show_home_link) echo $sep;
-        echo $before . sprintf($text['search'], get_search_query()) . $after;
-      }
-
-    } elseif ( is_day() ) {
-      if ($show_home_link) echo $sep;
-      echo sprintf($link, get_year_link(get_the_time('Y')), get_the_time('Y')) . $sep;
-      echo sprintf($link, get_month_link(get_the_time('Y'), get_the_time('m')), get_the_time('F'));
-      if ($show_current) echo $sep . $before . get_the_time('d') . $after;
-
-    } elseif ( is_month() ) {
-      if ($show_home_link) echo $sep;
-      echo sprintf($link, get_year_link(get_the_time('Y')), get_the_time('Y'));
-      if ($show_current) echo $sep . $before . get_the_time('F') . $after;
-
-    } elseif ( is_year() ) {
-      if ($show_home_link && $show_current) echo $sep;
-      if ($show_current) echo $before . get_the_time('Y') . $after;
-
-    } elseif ( is_single() && !is_attachment() ) {
-      if ($show_home_link) echo $sep;
-      if ( get_post_type() != 'post' ) {
-        $post_type = get_post_type_object(get_post_type());
-        $slug = $post_type->rewrite;
-        //printf($link, $home_url . $slug['slug'] . '/', $post_type->labels->singular_name);
-        if ($show_current) echo /*$sep .*/ $before . get_the_title() . $after;
-      } else {
-        $cat = get_the_category(); $cat = $cat[0];
-        $cats = get_category_parents($cat, TRUE, $sep);
-        if (!$show_current || get_query_var('cpage')) $cats = preg_replace("#^(.+)$sep$#", "$1", $cats);
-        $cats = preg_replace('#<a([^>]+)>([^<]+)<\/a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
-        echo $cats;
-        if ( get_query_var('cpage') ) {
-          echo $sep . sprintf($link, get_permalink(), get_the_title()) . $sep . $before . sprintf($text['cpage'], get_query_var('cpage')) . $after;
-        } else {
-          if ($show_current) echo $before . get_the_title() . $after;
-        }
-      }
-
-    // custom post type
-    } elseif ( !is_single() && !is_page() && get_post_type() != 'post' && !is_404() ) {
-      $post_type = get_post_type_object(get_post_type());
-      if ( get_query_var('paged') ) {
-        echo $sep . sprintf($link, get_post_type_archive_link($post_type->name), $post_type->label) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
-      } else {
-        if ($show_current) echo $sep . $before . $post_type->label . $after ;
-      }
-
-    } elseif ( is_attachment() ) {
-      if ($show_home_link) echo $sep;
-      $parent = get_post($parent_id);
-      $cat = get_the_category($parent->ID); $cat = $cat[0];
-      if ($cat) {
-        $cats = get_category_parents($cat, TRUE, $sep);
-        $cats = preg_replace('#<a([^>]+)>([^<]+)<\/a>#', $link_before . '<a$1' . $link_attr .'>' . $link_in_before . '$2' . $link_in_after .'</a>' . $link_after, $cats);
-        echo $cats;
-      }
-      printf($link, get_permalink($parent), $parent->post_title);
-      if ($show_current) echo $sep . $before . get_the_title() . $after;
-
-    } elseif ( is_page() && !$parent_id ) {
-      if ($show_current) echo $sep . $before . get_the_title() . $after;
-
-    } elseif ( is_page() && $parent_id ) {
-      if ($show_home_link) echo $sep;
-      if ($parent_id != $frontpage_id) {
-        $breadcrumbs = array();
-        while ($parent_id) {
-          $page = get_page($parent_id);
-          if ($parent_id != $frontpage_id) {
-            $breadcrumbs[] = sprintf($link, get_permalink($page->ID), get_the_title($page->ID));
-          }
-          $parent_id = $page->post_parent;
-        }
-        $breadcrumbs = array_reverse($breadcrumbs);
-        for ($i = 0; $i < count($breadcrumbs); $i++) {
-          echo $breadcrumbs[$i];
-          if ($i != count($breadcrumbs)-1) echo $sep;
-        }
-      }
-      if ($show_current) echo $sep . $before . get_the_title() . $after;
-
-    } elseif ( is_tag() ) {
-      if ( get_query_var('paged') ) {
-        $tag_id = get_queried_object_id();
-        $tag = get_tag($tag_id);
-        echo $sep . sprintf($link, get_tag_link($tag_id), $tag->name) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
-      } else {
-        if ($show_current) echo $sep . $before . sprintf($text['tag'], single_tag_title('', false)) . $after;
-      }
-
-    } elseif ( is_author() ) {
-      global $author;
-      $author = get_userdata($author);
-      if ( get_query_var('paged') ) {
-        if ($show_home_link) echo $sep;
-        echo sprintf($link, get_author_posts_url($author->ID), $author->display_name) . $sep . $before . sprintf($text['page'], get_query_var('paged')) . $after;
-      } else {
-        if ($show_home_link && $show_current) echo $sep;
-        if ($show_current) echo $before . sprintf($text['author'], $author->display_name) . $after;
-      }
-
-    } elseif ( is_404() ) {
-      if ($show_home_link && $show_current) echo $sep;
-      if ($show_current) echo $before . $text['404'] . $after;
-
-    } elseif ( has_post_format() && !is_singular() ) {
-      if ($show_home_link) echo $sep;
-      echo get_post_format_string( get_post_format() );
-    }
-
-    echo $wrap_after;
-
-  }
-} // end of dimox_breadcrumbs()
 
 // to remove the /./ from links, use this filter
 // https://stackoverflow.com/questions/17798815/remove-category-tag-base-from-wordpress-url-without-a-plugin

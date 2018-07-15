@@ -504,6 +504,8 @@ a:hover, a.tap {
   color: #fff;
 }
 
+.menu li.current-menu-item > a,
+.menu li.current-menu-ancestor > a,
 .menu li.active > a {
   color: #fc0;
 }
@@ -523,7 +525,8 @@ a:hover, a.tap {
   background-color: rgba(0, 0, 0, 0.75);
 }
 
-.menu ul li.active > a {
+.menu ul li.active > a,
+.menu ul li.current-menu-item > a {
   color: #fff;
 }
 
@@ -1120,8 +1123,8 @@ form textarea {
 
 .news dd {
   display: inline-block;
-  overflow: hidden;
   float: left;
+  overflow: hidden;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
