@@ -38,6 +38,62 @@
   var careerAlert = 'Пожалуйста, заполните все поля.';
   var careerEmailAlert = 'Пожалуйста, введите правильный адрес вашей электронной почты.';
 
-  </script>
+</script>
+
+<?php if( is_page_template('page-projects.php')):
+
+  $projectsData = new WP_Query(array(
+    'post_type'      => 'project',
+    //'cat'      => $curr__ID,
+    'orderby'    => 'date',
+    'order'    => 'DESC',
+    'posts_per_page' => -1,
+    //'numberposts' => -1,
+  ));
+  if ($projectsData->have_posts()):
+  //var_dump($projectsData);
+  $proData = '<script>';
+        $proData .= 'proData = [';
+          while ($projectsData->have_posts()) : $projectsData->the_post();
+            $k = 0;
+            if ( has_post_thumbnail()) {
+              $gallArr[$k] = get_the_post_thumbnail_url(get_the_ID(), 'small');
+              $gallFull[$k] = get_the_post_thumbnail_url(get_the_ID(), 'full');
+              $k++;
+            }
+            $projGall = get_field('proj_gallery');
+            $gallList = '';
+            $gallFullList = '';
+            if ($projGall) {
+              foreach ($projGall as $projImg) {
+                $gallArr[$k] = $projImg['sizes']['small'];
+                $gallFull[$k] = $projImg['url'];
+                $k++;
+              }
+              $gallList = implode(",", $gallArr);
+              $gallFullList = implode(",", $gallFull);
+            }
+            $dateS = get_field('star_data', false, false);
+            $dateS = new DateTime($dateS);
+            $dataStart = $dateS->format('j.m.Y');
+            $dataEnd = '';
+            if(get_field('end_data')){
+              $dateE = get_field('end_data', false, false);
+              $dateE = new DateTime($dateE);
+              $dataEnd = $dateE->format('j.m.Y');
+            }
+            $location = get_field('location');
+
+            $proData .= "[" . $location['lat'] . "," . $location['lng'] . "," . get_field('map_icon')  . ",'" .  get_the_title() . "','" . $dataStart . "','" . $dataEnd . "','" . get_field('serv_type') . "','" . get_field('serv_volume') . "','" . get_field('city') . "','" . get_field('customer') . "','" . $post->post_name . "','" . $gallList . "','" . $gallFullList . "'],";
+          endwhile;
+          wp_reset_postdata();
+        $proData .= '];';
+    $proData .= '</script>';
+    echo $proData;
+  endif;
+endif;
+?>
+
+
 </body>
 </html>

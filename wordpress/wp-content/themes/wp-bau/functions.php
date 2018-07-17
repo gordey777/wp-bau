@@ -500,5 +500,79 @@ class FilterPagesByTemplate {
 new FilterPagesByTemplate();
 
 
+add_action( 'init', 'post_type_projects' );
+function post_type_projects() {
+  $labels = array(
+    'name'=> __('Projects'),
+    'singular_name' =>__('Projects'),
+    'add_new' => __('Add'),
+    'add_new_item' => __('Add'),
+    'edit' => __('Edit'),
+    'edit_item' => __('Edit'),
+    'new-item' => __('Add'),
+    'view' => __('View'),
+    'view_item' => __('View'),
+    'search_items' => __('Search'),
+    'not_found' => __('Not Found'),
+    'not_found_in_trash' => __('Not Found'),
+    'parent' => __('Parent'),
+  );
+  $args = array(
+    'labels' => $labels,
+    'description' => 'Projects Post Type',
+    'public' => true,
+    'exclude_from_search' => true,
+    'show_ui' => true,
+    'menu_position' => 8,
+    // https://developer.wordpress.org/resource/dashicons/
+    'menu_icon' => 'dashicons-admin-tools',
+    'capability_type' => 'post',
+    //'capabilities' => 'post',
+    'hierarchical' => false,
+    'supports' => array('title','editor','author','thumbnail','post-formats','revisions'),
+    'rewrite' => array( 'slug' => 'projects' ),
+    'show_in_rest' => true
+  );
+  register_post_type( 'project' , $args );
+}
+
+
+
+
+////////////////////////////////AJAX POSTS
+
+function ajax_post_func(){
+//$post__id = $_POST['postid'];
+  $posturl = $_POST['posturl'];
+  $post_ID = url_to_postid($posturl);
+  if( isset( $_POST['posturl'])):
+    $args = array(
+      'post_type'      => 'project',
+      'posts_per_page'      => 1,
+      'p'      => (int)$post_ID
+    );
+    $query = new WP_Query( $args );
+
+    if( $query->have_posts() ) :
+      while( $query->have_posts() ):
+        $query->the_post();
+        //if(get_page_template_slug() === 'single-project.php' ){
+          get_template_part('project-template');
+        //}else{
+          //echo 'ERROR';
+        //}
+      endwhile;
+      wp_reset_postdata();
+    endif;
+    else: echo 'ERROR';
+
+  endif;
+  die();
+}
+
+add_action('wp_ajax_ajaxgetpost', 'ajax_post_func');
+add_action('wp_ajax_nopriv_ajaxgetpost', 'ajax_post_func');
+
+
 
 ?>

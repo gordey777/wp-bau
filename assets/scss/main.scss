@@ -1,4 +1,40 @@
-@import url(//fonts.googleapis.com/css?family=PT+Sans:400,700&subset=latin,cyrillic);
+@font-face {
+    font-family: 'PT Sans';
+    src: url('../fonts/PTSans-Italic.woff2') format('woff2'),
+        url('../fonts/PTSans-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'PT Sans';
+    src: url('../fonts/PTSans-Bold.woff2') format('woff2'),
+        url('../fonts/PTSans-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PT Sans';
+    src: url('../fonts/PTSans-BoldItalic.woff2') format('woff2'),
+        url('../fonts/PTSans-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'PT Sans';
+    src: url('../fonts/PTSans-Regular.woff2') format('woff2'),
+        url('../fonts/PTSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@import 'fa/font-awesome';
+
+
+
 
 /* RESET */
 
@@ -251,17 +287,25 @@ a {
     right: 40px;
 
     a {
+      font-size: 16px;
+
       display: block;
       float: left;
       overflow: hidden;
 
-      width: 16px;
-      height: 0;
+      min-width: 16px;
+      height: 16px;
       margin-left: 8px;
-      padding-top: 16px;
+      padding: 0;
 
-      background-image: url(../img/social.png);
+      text-align: center;
+
+      color: #fcfcfc;
+      //background-image: url(../img/social.png);
       background-repeat: no-repeat;
+      &:hover {
+        color: #fc0;
+      }
     }
   }
 }
@@ -663,6 +707,7 @@ a {
   text-shadow: none;
 }
 
+.home .menu,
 #main-page .menu {
   li:hover > a {
     background-color: transparent;
@@ -741,10 +786,30 @@ a {
   }
 }
 
-#custom-page .container {
-  margin-right: 40px;
+.single-project,
+.page-template-page-projects,
+.category-projects,
+.post-template-single-project,
+#custom-page {
+  .container {
+    margin-right: 40px;
+  }
+}
+.single-project,
+.page-template-page-projects,
+.category-projects,
+.post-template-single-project {
+  .container {
+    padding: 0;
+
+    background-color: transparent;
+  }
 }
 
+
+
+
+.home .container,
 #main-page .container {
   background: transparent !important;
 }
@@ -2348,7 +2413,7 @@ form p {
   .next {
     background-position: -120px -25px;
   }
-
+  .to_projects,
   .top {
     cursor: pointer;
 
@@ -2360,7 +2425,9 @@ form p {
 .cursor .project-nav a:hover,
 .project-nav a.tap,
 .cursor .project-nav .top:hover,
-.project-nav .top.tap {
+.cursor .project-nav .to_projects:hover,
+.project-nav .top.tap,
+.project-nav .to_projects.tap {
   opacity: .8;
 }
 
@@ -2752,8 +2819,12 @@ form p {
     }
   }
 
-  #custom-page .container .content {
-    padding-bottom: 0;
+  .category-projects,
+  .post-template-single-project,
+  #custom-page {
+    .container .content {
+      padding-bottom: 0;
+    }
   }
 
   .submenu {
@@ -2978,13 +3049,22 @@ form p {
     height: 320px;
     margin-top: 0;
 
-    -webkit-box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, .25);
-       -moz-box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, .25);
-            box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, .25);
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, .25);
   }
 
-  #main-page .background {
-    display: block !important;
+
+  .home,
+  #main-page {
+    .background {
+      display: block !important;
+    }
+    .services {
+      right: 0 !important;
+
+      width: auto !important;
+      padding-right: 3% !important;
+      padding-left: 3% !important;
+    }
   }
 
   .cycle-caption {
@@ -2992,13 +3072,6 @@ form p {
     right: 20px;
   }
 
-  #main-page .services {
-    right: 0 !important;
-
-    width: auto !important;
-    padding-right: 3% !important;
-    padding-left: 3% !important;
-  }
 
   .last-news {
     left: 0;
@@ -3279,6 +3352,7 @@ form p {
     height: auto;
   }
 
+  .home,
   #main-page {
     .background {
       position: relative !important;
@@ -3666,6 +3740,7 @@ form p {
     width: 100% !important;
   }
 
+  .home .background,
   #main-page .background {
     position: relative !important;
 

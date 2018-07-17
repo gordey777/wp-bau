@@ -109,7 +109,7 @@ function initHints() {
       tleft;
     html += $(this).attr('alt') ? '<h3>' + $(this).attr('alt') + '</h3>' : '';
     html += $(this).data('title') ? '<h3>' + $(this).data('title') + '</h3>' : '';
-    html += $(this).data('image') ? '<div class="image"><img src="/pub/projects/' + $(this).data('image') + '1.jpg" /></div>' : '';
+    //html += $(this).data('image') ? '<div class="image"><img src="/pub/projects/' + $(this).data('image') + '1.jpg" /></div>' : '';
     html += $(this).data('photo') ? '<div class="image"><img src="' + $(this).data('photo') + '" /></div>' : '';
     work += $(this).data('works') ? '<b>' + projectWorks + ':</b> <span>' + $(this).data('works') + '</span><br />' : '';
     work += $(this).data('scope') ? '<b>' + projectScope + ':</b> <span>' + $(this).data('scope') + ' ' + projectM + '²</span><br />' : '';
@@ -192,7 +192,7 @@ function initMap() {
   var mapStyles = [{ featureType: 'all', elementType: 'geometry', stylers: [{ color: '#222222' }] }, { featureType: 'all', elementType: 'labels.text.fill', stylers: [{ color: '#aaaaaa' }] }, { featureType: 'all', elementType: 'labels.text.stroke', stylers: [{ visibility: 'off' }] }, { featureType: 'administrative.country', elementType: 'geometry.stroke', stylers: [{ color: '#ffcc00' }, { weight: '1.5' }] }, { featureType: 'administrative.province', elementType: 'all', stylers: [{ color: '#777777' }, { weight: '0.75' }] }, { featureType: 'administrative.province', elementType: 'labels.text', stylers: [{ visibility: 'off' }] }, { featureType: 'administrative.locality', elementType: 'labels.icon', stylers: [{ color: '#777777' }] }, { featureType: 'administrative.neighborhood', elementType: 'labels.text', stylers: [{ visibility: 'off' }] }, { featureType: 'administrative.land_parcel', elementType: 'all', stylers: [{ visibility: 'off' }] }, { featureType: 'landscape.man_made', elementType: 'geometry', stylers: [{ color: '#333333' }] }, { featureType: 'poi', elementType: 'all', stylers: [{ visibility: 'off' }] }, { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#444444' }] }, { featureType: 'road', elementType: 'geometry.stroke', stylers: [{ visibility: 'on' }, { weight: '0.5' }] }, { featureType: 'road', elementType: 'labels.icon', stylers: [{ visibility: 'off' }] }, { featureType: 'road.highway', elementType: 'geometry', stylers: [{ color: '#555555' }] }, { featureType: 'road.highway', elementType: 'geometry.stroke', stylers: [{ visibility: 'on' }, { weight: '0.1' }] }, { featureType: 'road.highway.controlled_access', elementType: 'geometry', stylers: [{ saturation: '-40' }] }, { featureType: 'road.arterial', elementType: 'geometry', stylers: [{ color: '#555555' }] }, { featureType: 'transit', elementType: 'all', stylers: [{ visibility: 'off' }] }, { featureType: 'water', elementType: 'all', stylers: [{ color: '#494e52' }] }];
   if ($('#office-map').length) {
     var img = (retinaDisplay) ? 'marker-2x' : 'marker';
-    var ico = { url: '/img/' + img + '.png', scaledSize: new google.maps.Size(56, 56) };
+    var ico = { url: '/wp-content/themes/wp-bau/img/' + img + '.png', scaledSize: new google.maps.Size(56, 56) };
     var officePos = new google.maps.LatLng(50.455169, 30.640285);
     var officeMap = new google.maps.Map(document.getElementById('office-map'), { styles: mapStyles, zoom: 14, center: officePos, mapTypeId: google.maps.MapTypeId.ROADMAP, disableDefaultUI: true });
     var officeMarker = new google.maps.Marker({ position: officePos, map: officeMap, icon: ico, optimized: false });
@@ -250,7 +250,7 @@ function loadMarkers(map) {
     var ax = s == 1 ? (d == 1 ? 19 : 1) : (d == 1 ? 8 : 1),
       ay = s == 1 ? 29 : 15;
     var x2 = retinaDisplay ? '-2x' : '';
-    var ico = { url: '/img/flag' + size + dir + x2 + '.png', scaledSize: new google.maps.Size(sw, sh), anchor: new google.maps.Point(ax, ay) };
+    var ico = { url: '/wp-content/themes/wp-bau/img/flag' + size + dir + x2 + '.png', scaledSize: new google.maps.Size(sw, sh), anchor: new google.maps.Point(ax, ay) };
     var marker = new google.maps.Marker({ position: pos, map: map, zIndex: 10, icon: ico, optimized: false });
     eval('google.maps.event.addListener(marker, "click", function(event) {showProjectInfo(' + i + ')})');
     eval('google.maps.event.addListener(marker, "mouseover", function(event) {showMapHint(' + i + ')})');
@@ -289,7 +289,8 @@ function showProjectInfo(i) {
   html += proData[i][5] ? '<h3>' + proData[i][5] + '</h3>' : '';
   if (proData[i][13]) {
     var a = proData[i][13].split(',');
-    for (var s = 0; s < a.length; s++) { images += '<a href="/pub/projects/' + a[s] + '3.jpg"><img src="/pub/projects/' + a[s] + '1.jpg" alt="' + proData[i][5].replace(/"/g, '&quot;') + '" /></a>' }
+    var fullimg = proData[i][14].split(',');
+    for (var s = 0; s < a.length; s++) { images += '<a href="' + fullimg[s] + '"><img src="' + a[s] + '" alt="' + proData[i][5].replace(/"/g, '&quot;') + '" /></a>' }
     html += '<div class="pro-cycle"><span class="cycle-pager"></span>' + images + '</div>';
   }
   work += proData[i][8] ? '<b>' + projectWorks + ':</b> <span>' + proData[i][8] + '</span><br />' : '';
@@ -352,7 +353,7 @@ function initProjects() {
   $('body').on('click', 'a', function(event) {
     if (busy) { event.preventDefault(); return false }
     var url = $(this).attr('href');
-    if (url.match(/\/projects\//) && !url.match(/\/pub\//)) {
+    if (url.match(/\/projects\//) /*&& !url.match(/\/uploads\//)*/) {
       event.preventDefault();
       if (touchScreen && ($(this).hasClass('project-link') || $(this).find('img').hasClass('project-image'))) { return false }
       $('.project-body').addClass('hide').show();
@@ -367,10 +368,33 @@ function initProjects() {
       return false;
     }
   });
-  $('body').on('click', '.top', function(event) {
-    window.location = window.location.href.replace(/\/#\/[a-zA-Z-\/]+$/i, '/#/');
+  $('body').on('click', '.project-nav .top', function(event) {
+    if (busy) { event.preventDefault(); return false }
+    if ($('#projects-main').length && $('.project-body').length) {
+      event.preventDefault();
+      busy = true;
+      $('html').removeClass('overflow');
+      $('.project-body').addClass('hide');
+      var url = $(this).attr('href');
+      setTimeout(function() {
+        $('#projects-main').css({ visibility: 'visible' }).removeClass('hide');
+        $('.project-cycle').cycle('destroy');
+        $('.project-body').hide();
+        fitBG();
+        if ($('.pro-cycle').length) { $('.pro-cycle').cycle('resume') }
+        $('.project-body').removeClass('anim');
+        busy = false;
+      }, 1000);
+      window.location = url.replace(/\/projects\//i, '/projects/#/');
+      return false;
+    }
   });
+/*  $('body').on('click', '.top', function(event) {
+    window.location = window.location.href.replace(/\/#\/[a-zA-Z-\/]+$/i, '/#/');
+  });*/
 }
+
+
 
 function loadProject(url, after, direction) {
   if (busy) return;
@@ -388,9 +412,20 @@ function loadProject(url, after, direction) {
     $('.container').showLoader();
     fitBG();
     var qs = url.match(/\?/) ? '&' : '?';
+    var data = {
+      action: 'ajaxgetpost',
+      //postid: postid,
+      posturl: url,
+    };
+
     $.ajax({
-      url: url + qs + 'ajax=on',
-      cache: true,
+      url: adminAjax['ajaxurl'],
+      data: data,
+      type: 'POST',
+    //$.ajax({
+      //url: url + qs + 'ajax=on',
+      //cache: true,
+
       success: function(html) {
         $('.project-cycle').cycle('destroy');
         $('.project-body').html(html).removeClass('hide');
@@ -404,7 +439,13 @@ function loadProject(url, after, direction) {
         $('.project-nav .prev, .project-nav .next, .project-nav .top').tapHighlight();
         if (after) { after() }
         $('.project-body').addClass('anim').move3d(0, 0);
-        setTimeout(function() { $('.project-body').removeClass('anim');
+        setTimeout(function() {
+          $('.project-body').removeClass('anim');
+        if($('.project-body').find('.steps-wrap').length){
+          $('.project-body').addClass('close-steps');
+        } else {
+          $('.project-body').addClass('no-steps');
+        }
           fitBG();
           busy = false }, 1000);
       }

@@ -39,7 +39,7 @@ get_header(); ?>
       <?php } ?>
       <div class="pattern"></div>
     </div>
-  <?php endwhile; endif; ?>
+  <?php var_dump('news_project'); ?><?php endwhile; endif; ?>
 
 
 
