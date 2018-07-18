@@ -95,13 +95,13 @@ add_filter('script_loader_tag', 'add_defer_attribute', 10, 2);*/
 
 // Move js and css to footer
 function remove_head_scripts() {
-  remove_action( 'wp_head', 'wp_print_styles', 8);
+  //remove_action( 'wp_head', 'wp_print_styles', 8);
   remove_action('wp_head', 'wp_print_scripts');
   remove_action('wp_head', 'wp_print_head_scripts', 9);
   remove_action('wp_head', 'wp_enqueue_scripts', 1);
 
 
-  add_action('wp_footer', 'wp_print_styles', 5);
+  //add_action('wp_footer', 'wp_print_styles', 5);
   add_action('wp_footer', 'wp_print_scripts', 5);
   add_action('wp_footer', 'wp_enqueue_scripts', 5);
   add_action('wp_footer', 'wp_print_head_scripts', 5);
@@ -203,7 +203,7 @@ function register_html5_menu() {
   ));
 }
 //  Define Sidebar Widget Area 2. If your want to display more widget - uncoment this
-  /*
+
 if (function_exists('register_sidebar')) {
   //  Define Sidebar Widget Area 1
   register_sidebar(array(
@@ -217,7 +217,7 @@ if (function_exists('register_sidebar')) {
   ));
 }
 
-  */
+
 
 
 //  Custom Excerpts
@@ -529,7 +529,7 @@ function post_type_projects() {
     'capability_type' => 'post',
     //'capabilities' => 'post',
     'hierarchical' => false,
-    'supports' => array('title','editor','author','thumbnail','post-formats','revisions'),
+    'supports' => array('title','editor','author','thumbnail','post-formats','revisions','custom-fields'),
     'rewrite' => array( 'slug' => 'projects' ),
     'show_in_rest' => true
   );

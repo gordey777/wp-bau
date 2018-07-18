@@ -112,9 +112,9 @@ get_header(); ?>
     </div>
   </div>
   <div class="background">
-    <?php if(get_field('categiry_bg', $curr_term)){ ?>
+    <?php if(get_field('projects_bg', $front__id)){ ?>
       <div class="cycle-slideshow">
-        <img src="<?php the_field('categiry_bg', $curr_term); ?>" alt="">
+        <img src="<?php the_field('projects_bg', $front__id); ?>" alt="">
       </div>
     <?php } ?>
   </div>

@@ -24,8 +24,29 @@ get_header(); ?>
             <h1><?php the_title(); ?></h1>
             <a href="<?php echo $thumbFull; ?>" rel="zoom" class="news-zoom-image"><img src="<?php echo $thumbFull; ?>" class="news-image" alt="<?php the_title(); ?>"></a>
             <?php the_content(); ?>
-            <p>Проект: <a href="https://kauper.com.ua/projects/kjbk/" class="project-link" data-start="01.08.17" data-works="отделочные работы" data-scope="78 000" data-client="ФК Столица" data-city="Киев" data-image="7c8a836a659fd22">Многоквартирный жилой дом 26-эт. Троещина</a>
-            </p>
+
+            <?php $proj = get_field('news_project');
+            if($proj):
+              $thumb = catchFirstImage($proj);
+              $thumbFull = catchFirstImage($proj);
+              if ( has_post_thumbnail()) {
+                $thumb = get_the_post_thumbnail_url($proj, 'medium');
+                $thumbFull = get_the_post_thumbnail_url($proj, 'full');
+              } else if (get_field('proj_gallery', $proj)) {
+                $thg = get_field('proj_gallery', $proj);
+                $thumb = $thg[0]['sizes']['medium'];
+                $thumbFull = $thg[0]['url'];
+              }
+              $dateS = get_field('star_data', $proj, false, false);
+              $dateS = new DateTime($dateS);
+              $dataStart = 'data-start="' . $dateS->format('j.m.Y') .'"';
+              $dateE = get_field('end_data', $proj, false, false);
+              $dateE = new DateTime($dateE);
+              $dataEnd = 'data-end="' . $dateE->format('j.m.Y') .'"';
+              ?>
+
+              <p>Проект: <a href="<?php the_permalink($proj); ?>" class="project-link" alt="<?php echo get_the_title($proj); ?>" <?php echo $dataStart; ?> data-works="<?php the_field('serv_type', $proj); ?>" data-scope="<?php the_field('serv_volume', $proj); ?>" data-client="<?php the_field('customer', $proj); ?>" data-city="<?php the_field('city', $proj); ?>" data-photo="<?php echo $thumbFull; ?>"><?php echo get_the_title($proj); ?>. <?php the_field('city', $proj); ?></a></p>
+            <?php endif; ?>
           </div>
         </div>
         <?php get_sidebar(); ?>
@@ -39,11 +60,5 @@ get_header(); ?>
       <?php } ?>
       <div class="pattern"></div>
     </div>
-  <?php var_dump('news_project'); ?><?php endwhile; endif; ?>
-
-
-
-
-
-
+  <?php endwhile; endif; ?>
 <?php get_footer(); ?>

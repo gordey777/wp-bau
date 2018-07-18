@@ -1,8 +1,4 @@
 <?php
-    $category = get_the_category();
-    $curr_term = 'category_' . $category[0]->cat_ID;
-    $catLink = get_category_link( $category[0]->cat_ID);
-
     $projGall = get_field('proj_gallery');
     $stageGall = get_field('stages_gallery');
     $stepClass = 'no-steps';

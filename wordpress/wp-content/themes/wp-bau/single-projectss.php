@@ -1,14 +1,24 @@
-<?php get_header(); ?>
+<?php
+/*
+Template Name: Project
+Template Post Type: post
+*/
+get_header(); ?>
 
   <?php if (have_posts()): while (have_posts()) : the_post();
+    $category = get_the_category();
+    $curr_term = 'category_' . $category[0]->cat_ID;
+    $catLink = get_category_link( $category[0]->cat_ID);
+
     $projGall = get_field('proj_gallery');
     $stageGall = get_field('stages_gallery');
     $stepClass = 'no-steps';
     if($stageGall){
       $stepClass = 'close-steps';
     }
-    $next_post = get_next_post();
-    $prev_post = get_previous_post();
+
+    $next_post = get_next_post(true,'','category');
+    $prev_post = get_previous_post(true,'','category');
     $next_link = '<span class="next"></span>';
     $prev_link = '<span class="prev"></span>';
     if( ! empty($next_post) ){
@@ -23,7 +33,7 @@
         <div class="content">
           <div class="project-body <?php echo $stepClass ?>">
             <div class="project-nav">
-              <div><?php echo $prev_link; ?></a><a  id="to_projects" href="/projects" class="to_projects"></a><?php echo $next_link; ?></div>
+              <div><?php echo $prev_link; ?></a><a  id="to_projects" href="<?php echo $catLink; ?>" class="to_projects"></a><?php echo $next_link; ?></div>
             </div>
             <h1><?php the_title(); ?></h1>
             <div class="project-cycle-wrap">
@@ -87,11 +97,11 @@
 
     <div id="map-hint"></div>
     <div class="background">
-    <?php if(get_field('projects_bg', $front__id)){ ?>
-      <div class="cycle-slideshow">
-        <img src="<?php the_field('projects_bg', $front__id); ?>" alt="">
-      </div>
-    <?php } ?>
+      <?php if(get_field('categiry_bg', $curr_term)){ ?>
+        <div class="cycle-slideshow">
+          <img src="<?php the_field('categiry_bg', $curr_term); ?>" alt="">
+        </div>
+      <?php } ?>
       <div class="pattern"></div>
     </div>
   <?php endwhile; endif; ?>

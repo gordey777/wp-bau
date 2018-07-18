@@ -1,33 +1,37 @@
 @font-face {
-    font-family: 'PT Sans';
-    src: url('../fonts/PTSans-Italic.woff2') format('woff2'),
-        url('../fonts/PTSans-Italic.woff') format('woff');
-    font-weight: normal;
-    font-style: italic;
+  font-family: 'PT Sans';
+  font-weight: normal;
+  font-style: italic;
+
+  src: url('../fonts/PTSans-Italic.woff2') format('woff2'),
+  url('../fonts/PTSans-Italic.woff') format('woff');
 }
 
 @font-face {
-    font-family: 'PT Sans';
-    src: url('../fonts/PTSans-Bold.woff2') format('woff2'),
-        url('../fonts/PTSans-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
+  font-family: 'PT Sans';
+  font-weight: bold;
+  font-style: normal;
+
+  src: url('../fonts/PTSans-Bold.woff2') format('woff2'),
+  url('../fonts/PTSans-Bold.woff') format('woff');
 }
 
 @font-face {
-    font-family: 'PT Sans';
-    src: url('../fonts/PTSans-BoldItalic.woff2') format('woff2'),
-        url('../fonts/PTSans-BoldItalic.woff') format('woff');
-    font-weight: bold;
-    font-style: italic;
+  font-family: 'PT Sans';
+  font-weight: bold;
+  font-style: italic;
+
+  src: url('../fonts/PTSans-BoldItalic.woff2') format('woff2'),
+  url('../fonts/PTSans-BoldItalic.woff') format('woff');
 }
 
 @font-face {
-    font-family: 'PT Sans';
-    src: url('../fonts/PTSans-Regular.woff2') format('woff2'),
-        url('../fonts/PTSans-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'PT Sans';
+  font-weight: normal;
+  font-style: normal;
+
+  src: url('../fonts/PTSans-Regular.woff2') format('woff2'),
+  url('../fonts/PTSans-Regular.woff') format('woff');
 }
 
 
@@ -498,9 +502,10 @@ a {
   width: 32px;
   height: 32px;
   margin: -16px 0 0 -16px;
+  //background: url(../img/loader.png) left top no-repeat;
 
-  background: url(../img/loader.png) left top no-repeat;
-
+  background: url(../img/35.svg) center center no-repeat;
+  background-size: contain;
   &.small {
     width: 16px;
     height: 16px;
@@ -630,16 +635,29 @@ a {
 
       color: #fff;
     }
-    &.current-menu-item > a,
-    &.current-menu-ancestor > a,
-    &.active > a {
-      color: #fc0;
+
+    &.current-menu-parent,
+    &.current-menu-item,
+    &.active {
+       >  {
+        a {
+          color: #fc0;
+        }
+      }
     }
   }
 }
 
-.submenu li.active > a {
-  color: #fc0;
+.submenu {
+  li {
+    &.current-menu-parent,
+    &.current-menu-item,
+    &.active {
+       > a {
+        color: #fc0;
+      }
+    }
+  }
 }
 
 .menu ul {
@@ -655,6 +673,7 @@ a {
   list-style: none;
 
   background-color: rgba(0, 0, 0, .75);
+  li.current-menu-parent > a,
   li.active > a,
   li.current-menu-item > a {
     color: #fff;
@@ -1307,6 +1326,16 @@ form {
   }
 }
 
+.works-item {
+  margin-bottom: 1.5em;
+  &:nth-child(-1),
+  &:nth-child(-2),
+  &:nth-child(-3) {
+    margin-bottom: 0;
+  }
+}
+
+
 @media only screen and (min-width: 1100px) {
   .e-box2col {
     padding-left: 40px;
@@ -1904,7 +1933,8 @@ form p {
     height: 160px;
     margin-top: 0;
 
-    background: url(../img/loader.gif) center center no-repeat;
+    background: url(../img/35.svg) center center no-repeat;
+    background-size: contain;
   }
 }
 
@@ -2593,7 +2623,7 @@ form p {
       text-indent: -1.1em;
 
       &:before {
-        content: 'тАФ┬а';
+        content: '\2014';
       }
     }
   }
@@ -2666,7 +2696,7 @@ form p {
   }
 
   .footer .social a {
-    background-image: url(../img/social-2x.png);
+    //background-image: url(../img/social-2x.png);
     -webkit-background-size: 64px 32px;
        -moz-background-size: 64px 32px;
             background-size: 64px 32px;
@@ -2747,16 +2777,18 @@ form p {
   }
 
   .hint .image {
-    background-image: url(../img/loader-2x.gif);
-    -webkit-background-size: 16px 16px;
-       -moz-background-size: 16px 16px;
-            background-size: 16px 16px;
+    background-image: url(../img/35.svg);
+    background-size: contain;
+    // -webkit-background-size: 16px 16px;
+    //    -moz-background-size: 16px 16px;
+    //         background-size: 16px 16px;
   }
 
   #loader {
-    -webkit-background-size: 56px 384px;
-       -moz-background-size: 56px 384px;
-            background-size: 56px 384px;
+    background-size: contain;
+    // -webkit-background-size: 56px 384px;
+    //    -moz-background-size: 56px 384px;
+    //         background-size: 56px 384px;
   }
 
   .media-btn {

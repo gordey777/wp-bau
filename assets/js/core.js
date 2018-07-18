@@ -475,12 +475,12 @@ jQuery.fn.showLoader = function(s) {
   var left = (retinaDisplay) ? 0 : 64,
     width = (c.match(/small/)) ? 16 : 32;
   if (c.match(/small/)) { left = (retinaDisplay) ? 32 : 96 }
-  $('#loader').css({ backgroundPosition: '-' + left + 'px -' + width + 'px' });
+/*  $('#loader').css({ backgroundPosition: '-' + left + 'px -' + width + 'px' });
   loaderIndex = 2;
   loader = setInterval(function() {
     $('#loader').css({ backgroundPosition: '-' + left + 'px -' + (loaderIndex * width) + 'px' });
     loaderIndex = (loaderIndex + 1) % 12;
-  }, 60);
+  }, 60);*/
 };
 
 jQuery.fn.hideLoader = function() {
