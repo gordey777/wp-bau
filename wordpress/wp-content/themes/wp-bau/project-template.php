@@ -11,13 +11,12 @@
     $next_link = '<span class="next"></span>';
     $prev_link = '<span class="prev"></span>';
     if( ! empty($next_post) ){
-    $next_link = '<a href="' . get_permalink( $next_post ) . '" data-postid="' . $next_post->ID . '" class="next"></a>';
+    $next_link = '<a href="' . get_permalink( $next_post ) . '" title="' . $next_post->post_title . '" data-postid="' . $next_post->ID . '" class="next"></a>';
     }
     if( ! empty($prev_post) ){
-    $prev_link = '<a href="' . get_permalink( $prev_post ) . '" data-postid="' . $prev_post->ID . '" class="prev"></a>';
+    $prev_link = '<a href="' . get_permalink( $prev_post ) . '" title="' . $prev_post->post_title . '" data-postid="' . $prev_post->ID . '" class="prev"></a>';
     }
     ?>
-
             <div class="project-nav">
               <div><?php echo $prev_link; ?></a><span class="top"></span><?php echo $next_link; ?></div>
             </div>
@@ -44,16 +43,14 @@
             </div>
             <div class="project-text">
               <p class="project-info">
-                <?php $dateS = get_field('star_data', false, false);
-                $dateS = new DateTime($dateS);
-                $dataStart = $dateS->format('j F Y'); ?>
+                <?php
+                $dateStart = date_i18n("j F Y", strtotime(get_field('star_data')));
+                ?>
                 <b>Виды работ:</b> <?php the_field('serv_type'); ?><br />
                 <b>Объем работ:</b> <?php the_field('serv_volume'); ?> м²<br />
-                <b>Дата начала работ:</b> <?php echo $dataStart; ?><br />
+                <b>Дата начала работ:</b> <?php echo $dateStart; ?><br />
                 <?php if(get_field('end_data')){
-                  $dateE = get_field('end_data', false, false);
-                  $dateE = new DateTime($dateE);
-                  $dataEnd = $dateE->format('j F Y'); ?>
+                  $dataEnd = date_i18n("j F Y", strtotime(get_field('end_data'))); ?>
                   <b>Дата окончания работ:</b> <?php echo $dataEnd; ?><br />
                 <?php } ?>
                 <b>Населенный пункт:</b> <?php the_field('city'); ?><br />
