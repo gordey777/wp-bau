@@ -16,7 +16,7 @@
         <div  id="post-<?php the_ID(); ?>" <?php post_class('content'); ?>>
           <div class="news-date"> <?php the_time('d F Y'); ?></div>
           <div class="news-content">
-            <h1><?php the_title(); ?></h1>
+            <h1><?php the_title(); ?></h1><?php edit_post_link(); ?>
             <a href="<?php echo $thumbFull; ?>" rel="zoom" class="news-zoom-image"><img src="<?php echo $thumbFull; ?>" class="news-image" alt="<?php the_title(); ?>"></a>
             <?php the_content(); ?>
           </div>
